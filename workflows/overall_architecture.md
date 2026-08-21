@@ -54,3 +54,31 @@ graph TD
 3.  **Utility-Aware Critique**: The system evaluates not just if an answer is truthful (Grounding), but also if it actually addresses the user's intent (Utility).
 4.  **Adaptive Retrieval**: If utility or grounding is low, the **Query Rewriter** optimizes the search query to re-trigger the CRAG/Retrieval process.
 5.  **Best-Effort Delivery**: If search loops are exhausted, the system prioritizes grounded truths over generic errors, delivering partial answers if they are factually correct.
+
+## Compact version
+```mermaid
+flowchart TB
+    UQ["User Query"] --> DQ["Decouple Query"]
+    DQ -->|"Search query"| RET["Retrieve from Qdrant"]
+    RET --> CRAG{"CRAG: Relevant?"}
+
+    CRAG -->|"Correct"| LOCAL["Local Docs Only"]
+    CRAG -->|"Ambiguous"| HYBRID["Hybrid: Local + Web"]
+    CRAG -->|"Incorrect"| WEB["Web Search Only"]
+
+    LOCAL --> GD["Generate Draft"]
+    HYBRID --> GD
+    WEB --> GD
+    DQ -.->|"Original intent"| GD
+
+    GD --> CRITIC{"SR-RAG: Critic Check?"}
+    CRITIC -->|"Pass / best-effort"| FINAL["Final Answer"]
+    CRITIC -->|"Low utility / grounding"| REWRITE["Rewrite Query"]
+    REWRITE -->|"Retry"| RET
+
+    classDef plain fill:none,stroke:#333,stroke-width:1.25px,color:#111;
+    classDef decision fill:none,stroke:#333,stroke-width:1.25px,color:#111;
+    class UQ,DQ,RET,LOCAL,HYBRID,WEB,GD,FINAL,REWRITE plain;
+    class CRAG,CRITIC decision;
+
+```
