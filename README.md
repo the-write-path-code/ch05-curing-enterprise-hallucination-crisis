@@ -44,8 +44,8 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 ### 2. Clone and synchronize the repository
 
 ```bash
-git clone https://github.com/the-write-path-code/ch5-curing-enterprise-hallucination-crisis.git
-cd ch5-curing-enterprise-hallucination-crisis
+git clone https://github.com/the-write-path-code/ch05-curing-enterprise-hallucination-crisis.git
+cd ch05-curing-enterprise-hallucination-crisis
 uv sync
 ```
 
@@ -53,16 +53,20 @@ The repository includes `uv.lock` and `.python-version`. Use `uv sync` after pul
 
 ### 3. Create local configuration
 
-This repository currently has no committed `.env.example`. Create a local `.env` file from the variables read by the application configuration, and do not commit it.
+Copy `.example.env` to create a local `.env` file from the variables read by the application configuration, and do not commit it:
 
-At minimum, configure the Gemini and Serper credentials required by your implementation. The variable names below are a template for documentation and must match the names the repository actually reads:
+```bash
+cp .example.env .env
+```
+
+At minimum, configure the Gemini and Serper credentials required by your implementation. The variable names below match the names the repository reads:
 
 ```dotenv
-GOOGLE_API_KEY=your-gemini-api-key
+GEMINI_API_KEY=your-gemini-api-key
 SERPER_API_KEY=your-serper-api-key
 ```
 
-Before publishing this repository, add a committed `.env.example` with placeholder values and comments describing each setting. A README must never instruct a reader to copy a file that does not exist.
+A `.example.env` file is provided with placeholder values and comments describing each setting.
 
 ## Configuration
 
@@ -172,13 +176,13 @@ Run tests before changing route conditions, loop caps, query rewriting, fallback
 ├── pyproject.toml
 ├── uv.lock
 ├── .python-version
+├── .example.env                       # Environment configuration template
+├── ISSUES.md                          # Design notes and resolved failure modes
+├── TESTING_QUERIES.md                 # Multi-part and edge-case test prompts
 ├── src/
-│   └── main.py                       # Pipeline entry point
-├── docs/
-│   ├── issues-and-resolutions.md      # Design notes and resolved failure modes
-│   ├── testing-queries.md             # Multi-part and edge-case test prompts
-│   └── ...                            # CRAG and SR-RAG workflow materials
-├── workflow/                          # Mermaid diagrams, if present
+│   └── main.py                        # Pipeline entry point
+├── data/                              # Local corpus for document ingestion
+├── workflows/                         # CRAG and SR-RAG workflow materials and diagrams
 ├── tests/
 └── .env                               # Local credentials only; never commit
 ```
