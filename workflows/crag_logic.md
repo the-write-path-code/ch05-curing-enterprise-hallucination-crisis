@@ -3,6 +3,8 @@
 This workflow illustrates the Corrective Retrieval-Augmented Generation (CRAG) logic used to determine if retrieved context is sufficient or needs web augmentation.
 
 ```mermaid
+%%{init: {"theme": "neutral", "themeVariables": {"fontFamily": "Arial, Helvetica, sans-serif", "fontSize": "11px", "actorFontSize": "11px", "noteFontSize": "10px", "messageFontSize": "10px"}}}%%
+
 flowchart TD
     Start[Retrieve from Qdrant] --> Eval[Gemini Relevance Evaluator]
     
