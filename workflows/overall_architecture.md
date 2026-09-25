@@ -3,6 +3,8 @@
 This document visualizes the complete end-to-end flow of the Corrective and Self-Reflective RAG (CRAG/SR-RAG) pipeline.
 
 ```mermaid
+%%{init: {"theme": "neutral", "themeVariables": {"fontFamily": "Arial, Helvetica, sans-serif", "fontSize": "11px", "actorFontSize": "11px", "noteFontSize": "10px", "messageFontSize": "10px"}}}%%
+
 graph TD
     User([User Query]) --> Decouple{Decouple Queries}
     Decouple --> |"Search Query"| Retrieval[Retrieve from Qdrant]
