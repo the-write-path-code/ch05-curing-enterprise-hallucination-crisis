@@ -3,6 +3,8 @@
 This workflow details the Self-Reflective (SR-RAG) iteration loop, which handles grounded generation and hallucination prevention.
 
 ```mermaid
+%%{init: {"theme": "neutral", "themeVariables": {"fontFamily": "Arial, Helvetica, sans-serif", "fontSize": "11px", "actorFontSize": "11px", "noteFontSize": "10px", "messageFontSize": "10px"}}}%%
+
 flowchart TD
     Start[Handoff from CRAG] --> Draft[Generator: Draft Answer]
     Draft --> Critique[Critic: Score & Utility]
