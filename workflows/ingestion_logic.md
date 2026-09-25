@@ -3,6 +3,8 @@
 This workflow visualizes how local documents are processed into the vector database.
 
 ```mermaid
+%%{init: {"theme": "neutral", "themeVariables": {"fontFamily": "Arial, Helvetica, sans-serif", "fontSize": "11px", "actorFontSize": "11px", "noteFontSize": "10px", "messageFontSize": "10px"}}}%%
+
 flowchart LR
     Docs[data/*.md, data/*.pdf] --> Docling[IBM Docling Engine]
     Docling --> Parser[Structural Layout Parsing]
