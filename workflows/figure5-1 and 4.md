@@ -1,7 +1,7 @@
 ## Figure 5.1
 
 ```mermaid
-
+%%{init: {"theme": "neutral", "themeVariables": {"fontFamily": "Arial, Helvetica, sans-serif", "fontSize": "11px", "actorFontSize": "11px", "noteFontSize": "10px", "messageFontSize": "10px"}}}%%
 flowchart TB
     UQ["User Query"] --> DQ["Decouple Query"]
     DQ -->|"Search query"| RET["Retrieve from Qdrant"]
@@ -25,7 +25,7 @@ flowchart TB
 ## Figure 5.4
 
 ```mermaid
-
+%%{init: {"theme": "neutral", "themeVariables": {"fontFamily": "Arial, Helvetica, sans-serif", "fontSize": "11px", "actorFontSize": "11px", "noteFontSize": "10px", "messageFontSize": "10px"}}}%%
 flowchart TB
     UQ["User Query"] --> DQ["Decouple Query"]
     DQ -->|"Search query"| RET["Retrieve from Qdrant"]
