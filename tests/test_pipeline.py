@@ -23,7 +23,7 @@ def test_qdrant_retrieval_success():
     
     # Check CRAG Evaluation
     eval_result = evaluate_relevance(query, chunks)
-    assert eval_result.is_relevant is True, "Expected CRAG to mark these chunks as relevant."
+    assert eval_result.status == "correct", f"Expected CRAG status 'correct', got '{eval_result.status}' (reasoning: {eval_result.reasoning})"
     
     # Check end-to-end generation
     answer = run_crag_pipeline(query)
@@ -40,7 +40,7 @@ def test_serper_web_fallback():
     
     # CRAG Evaluation should FAIL because the local docs don't cover current external events
     eval_result = evaluate_relevance(query, chunks)
-    assert eval_result.is_relevant is False, "Expected CRAG to mark these chunks as irrelevant since Qdrant only knows about the local data directory."
+    assert eval_result.status == "incorrect", f"Expected CRAG status 'incorrect', got '{eval_result.status}' (reasoning: {eval_result.reasoning})"
     
     # Ensure fallback alone pulls web snippets
     web_chunks = fallback_to_web(query)
