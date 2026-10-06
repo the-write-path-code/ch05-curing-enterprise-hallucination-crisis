@@ -2,7 +2,7 @@
 
 Companion code for *Building Safe Agentic AI for Enterprise Systems* by Mohit Aggarwal.
 
-This repository implements corrective retrieval for cases where a standard retrieval-augmented generation (RAG) pipeline has found evidence that is relevant but incomplete, stale, or otherwise unfit to answer the full question. It combines a three-state Corrective RAG (CRAG) router, a self-reflective retrieval loop, query decoupling, and a bounded best-effort response path.
+This repository implements corrective retrieval for cases where a standard retrieval-augmented generation (RAG) pipeline has found evidence that is relevant but incomplete, stale, or otherwise unfit to answer the full question. It combines a three-state Corrective RAG (CRAG) router, a self-reflective retrieval loop, query decoupling, and a bounded best-effort response path. You can also explore the chapter's [interactive workflow diagrams](#architecture-and-workflow-diagrams) directly in your browser.
 
 The repository does not treat a grounded disclaimer as an adequate endpoint when more targeted retrieval could resolve the missing part of a request. It also does not let the system retry forever. Retrieval, critique, rewriting, and fallback occur within stated limits.
 
@@ -182,26 +182,35 @@ Run tests before changing route conditions, loop caps, query rewriting, fallback
 ├── src/
 │   └── main.py                        # Pipeline entry point
 ├── data/                              # Local corpus for document ingestion
-├── workflows/                         # CRAG and SR-RAG workflow materials and diagrams
 ├── tests/
-└── .env                               # Local credentials only; never commit
+└── workflow/                          # Interactive HTML diagrams and companion workflow specifications
+    ├── 01_overall_architecture.html
+    ├── 02_ingestion_pipeline.html
+    ├── 03_crag_decision_flow.html
+    ├── 04_srag_critique_loop.html
+    ├── 05_query_decoupling_flow.html
+    ├── crag_logic.md
+    ├── figure5-1 and 4.md
+    ├── ingestion_logic.md
+    ├── loop_logic.png
+    ├── overall_architecture.md
+    └── srag_logic.md
 ```
 
-## Architecture Diagrams and Supporting Documents
+<a id="architecture-and-workflow-diagrams"></a>
+## Architecture and Workflow Diagrams
 
-The repository documents the CRAG and SR-RAG paths with Mermaid workflows. Use those diagrams with the Chapter 5 figures to trace the following sequence:
+The `workflow/` directory contains interactive HTML diagrams alongside companion markdown documentation and schematics (`crag_logic.md`, `figure5-1 and 4.md`, `ingestion_logic.md`, `loop_logic.png`, `overall_architecture.md`, `srag_logic.md`) detailing the end-to-end corrective retrieval, Docling ingestion, CRAG routing, self-reflective critique, and query decoupling loops explored in Chapter 5:
 
-```text
-Original user query
-    -> local Qdrant retrieval
-    -> CRAG relevance evaluation
-    -> local, hybrid, or web-only context
-    -> draft generation
-    -> grounding and utility critique
-    -> delivery, refinement, or query rewrite
-```
+- [`01_overall_architecture.html`](https://the-write-path-code.github.io/ch05-curing-enterprise-hallucination-crisis/workflow/01_overall_architecture.html) shows Figure 5.1 & 5.5 end-to-end corrective RAG (CRAG) and self-reflective RAG (SR-RAG) architecture, state evaluation, and bounded loop delivery.
+- [`02_ingestion_pipeline.html`](https://the-write-path-code.github.io/ch05-curing-enterprise-hallucination-crisis/workflow/02_ingestion_pipeline.html) shows the enterprise ingestion and vector pipeline using Docling markdown extraction, hybrid chunking, Gemini text embedding, and Qdrant storage.
+- [`03_crag_decision_flow.html`](https://the-write-path-code.github.io/ch05-curing-enterprise-hallucination-crisis/workflow/03_crag_decision_flow.html) shows the three-state CRAG retrieval evaluator and routing gatekeeper directing queries across CORRECT (local), AMBIGUOUS (hybrid), and INCORRECT (web fallback) routes.
+- [`04_srag_critique_loop.html`](https://the-write-path-code.github.io/ch05-curing-enterprise-hallucination-crisis/workflow/04_srag_critique_loop.html) shows the Self-Reflective RAG (SR-RAG) dual critique and recovery loop evaluating grounding and utility with bounded query rewriting.
+- [`05_query_decoupling_flow.html`](https://the-write-path-code.github.io/ch05-curing-enterprise-hallucination-crisis/workflow/05_query_decoupling_flow.html) shows Figure 5.4 query decoupling and intent preservation separating mutable retrieval queries from the immutable original user contract.
 
-The design documents should remain the authoritative source for exact prompt templates, model configuration, retrieval collection names, and observability settings.
+The interactive `.html` files in `workflow/` can be opened directly in your browser using the links above (hosted via GitHub Pages with pan, zoom, dark/light theme, and animation support), or opened locally in any modern browser.
+
+The design documents and companion markdown files in `workflow/` remain the authoritative source for exact prompt templates, model configuration, retrieval collection names, and observability settings.
 
 ## Safety and Operational Limits
 
